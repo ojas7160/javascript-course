@@ -228,3 +228,81 @@ var arr1 = ['ojas', 'wadhwa', 'parth']
 var arr2 = ['parth', 'wadhwa', 'ojas']
 
 var arr3 = [...arr1, ...arr2]; // ojas wadhwa parth parth wadhwa ojas 
+
+/*
+* Rest parameters
+*/
+
+//ES5
+function fullAge5() {
+  console.log(arguments); // [1990, 1999, 1995] -> not an array actually
+  var argArr = Array.prototype.slice.call(arguments);
+  argArr.forEach(function(cur) {
+    console.log((2019 - curr) > 18);
+  })
+}
+
+fullAge5(1990, 1999, 1995);
+
+//ES6
+function fullAge6(...years) {
+  console.log(years) // [1990, 1999, 1995] -> an array actually, so no need to transform
+}
+
+fullAge6(1990, 1999, 1995);
+
+/*
+* Classes with subclasses (Inheritance)
+*/
+
+//ES5
+var person5 = function (name, job, yearOfBirth){
+  this.name = name
+  this.job = job
+  this.yearOfBirth = yearOfBirth
+}
+
+person5.prototype.calcAge5 = function(){
+  return new Date.getFullYear() - this.yearOfBirth
+}
+
+var athlete5 = function(name, job ,yearOfBirth, olympicGames, medals){
+  person5.call(this, name, job, yearOfBirth, olympicGames, medals);
+  this.olympicGames = olympicGames;
+  this.medals = medals;
+}
+
+athlete5.prototype = Object.create(person5.prototype);
+var john5 = new athlete5('john', 'swimmer', 1995, 'swimming', 10);
+john5.calcAge5(); // 24 -> inheritance calcAge5 is a function of person class
+
+//ES6
+
+class person6 {
+  constructor(name, job, yearOfBirth){
+    this.name = name;
+    this.job = job
+    this.yearOfBirth = yearOfBirth
+  }
+  calcAge6 = function(){
+    return new Date.getFullYear() - this.yearOfBirth
+  }
+  
+}
+
+class athlete6 extends person6{
+  constructor(name, job, yearOfBirth, olympicGames, medals){
+    super(name, job, yearOfBirth)
+    this.olympicGames = olympicGames
+    this.medals = medals
+  }
+
+  wonMedals = function(){
+    console.log('won 10 medals');
+  }
+}
+
+const john6 = new athlete6('john', 'swimmer', 1995, 'swimming', 10);
+john6.calcAge6();
+john6.wonMedals();
+
