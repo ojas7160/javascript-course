@@ -12,7 +12,7 @@ var john = {
   job: 'Teacher'
 }
 
-var Person = function(name, yearOfBirth, job) { // consturctor function
+var Person = function(name, yearOfBirth, job) { // constructor function
   this.name = name;
   this.yearOfBirth = yearOfBirth;
   this.job = job;
